@@ -1,2099 +1,257 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" class="dark">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>4D - Deuce</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manual de Usuario - Contact Research Tool</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #10023D;
+      color: #e0e0e0;
+    }
 
-  <!--
-    - favicon
-  -->
-  <link rel="shortcut icon" href="./assets/images/logo/favicon.ico" type="image/x-icon">
+    .leaflet-container {
+      height: 400px;
+      border-radius: 1rem;
+    }
 
-  <!--
-    - custom css link
-  -->
-  <link rel="stylesheet" href="./assets/css/style-prefix.css">
+    .bg-primary {
+      background-color: #10023D;
+    }
 
-  <!--
-    - google font link
-  -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+    .bg-secondary {
+      background-color: #281E4F;
+    }
 
+    .bg-btn {
+      background-color: #35327A;
+    }
+
+    .tag.selected {
+      background-color: #4f46e5;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+
+    summary {
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+  </style>
 </head>
 
-<body>
+<body class="font-sans">
 
-
-  <div class="overlay" data-overlay></div>
-
-  <!--
-    - MODAL
-  -->
-
-  <div class="modal" data-modal>
-
-    <div class="modal-close-overlay" data-modal-overlay></div>
-
-    <div class="modal-content">
-
-      <button class="modal-close-btn" data-modal-close>
-        <ion-icon name="close-outline"></ion-icon>
-      </button>
-
-      <div class="newsletter-img">
-        <img src="./assets/images/djokovic .png" alt="subscribe newsletter" width="400" height="400">
-      </div>
-
-      <div class="newsletter">
-
-        <form action="#">
-
-          <div class="newsletter-header">
-
-            <h3 class="newsletter-title">Subscríbete</h3>
-
-            <p class="newsletter-desc">
-              Subscríbete <b>DEUCE</b> para recibir las últimas actualizaciones de nuestros productos y descuentos.
-            </p>
-
+    <header class="bg-secondary text-white shadow-md sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+          <!-- Logo -->
+          <div class="flex items-center space-x-2">
+            <!-- Aquí se agrega el logo -->
+            <img src="icono.png" alt="Logo" class="w-50 h-12" />
           </div>
-
-          <input type="email" name="email" class="email-field" placeholder="Email Address" required>
-
-          <button type="submit" class="btn-newsletter">Subscríbete</button>
-
-        </form>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-
-
-
-  <!--
-    - NOTIFICATION TOAST
-  -->
-
-  <div class="notification-toast" data-toast>
-
-    <button class="toast-close-btn" data-toast-close>
-      <ion-icon name="close-outline"></ion-icon>
-    </button>
-
-    <div class="toast-banner">
-      <img src="./assets/images/goraa 1.jpg" alt="Rose Gold Earrings" width="80" height="70">
-    </div>
-
-    <div class="toast-detail">
-
-      <p class="toast-message">
-       Recomandación
-      </p>
-
-      <p class="toast-title">
-       Gorra Deportiva Negra
-      </p>
-
-      <p class="toast-meta">
-        <time datetime="PT2M"></time>
-      </p>
-
-    </div>
-
-  </div>
-
-
-
-
-
-  <!--
-    - HEADER
-  -->
-
-  <header>
-
-    <div class="header-top">
-
-      <div class="container">
-
-        <ul class="header-social-container">
-
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-facebook"></ion-icon>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-instagram"></ion-icon>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-linkedin"></ion-icon>
-            </a>
-          </li>
-
-        </ul>
-
-        <div class="header-alert-news">
-          
-        </div>
-
-        <div class="header-top-actions">
-
-          <select name="currency">
-
-            
-            <option value="BOL">BOL BS.-</option>
-
-          </select>
-
-          <select name="language">
-
-           
-            <option value="es-ES">Espa&ntilde;ol</option>
-           
-
-          </select>
-
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="header-main">
-
-      <div class="container">
-
-        <a href="#" class="header-logo">
-          <img src="./assets/images/logo deuce.jpg" alt="Anon's logo" width="120" height="36">
-        </a>
-
-        <div class="header-search-container">
-
-          <input type="search" name="search" class="search-field" placeholder="Enter your product name...">
-
-          <button class="search-btn">
-            <ion-icon name="search-outline"></ion-icon>
-          </button>
-
-        </div>
-
-        <div class="header-user-actions">
-
-          <button class="action-btn">
-            <ion-icon name="person-outline"></ion-icon>
-          </button>
-
-          <button class="action-btn">
-            <ion-icon name="heart-outline"></ion-icon>
-            <span class="count">0</span>
-          </button>
-
-          <button class="action-btn">
-            <ion-icon name="bag-handle-outline"></ion-icon>
-            <span class="count">0</span>
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-    <nav class="desktop-navigation-menu">
-
-      <div class="container">
-
-        <ul class="desktop-menu-category-list">
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">HOME</a>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">CATEGORIAS</a>
-
-            <div class="dropdown-panel">
-
-              <ul class="dropdown-panel-list">
-
-                <li class="menu-title">
-                  <a href="#">TENIS</a>
-                </li>
-
-                <li class="panel-list-item">
-                  <a href="#">HOMBRES</a>
-                </li>
-
-                <li class="panel-list-item">
-                  <a href="#">MUJERES</a>
-                </li>
-
-                <li class="panel-list-item">
-                  <a href="#">JÓVENES / NIÑOS</a>
-                </li>
-
-                <li class="panel-list-item">
-                  <a href="#">SOBRE NOSOTROS</a>
-                </li>
-
-                <li class="panel-list-item">
-                  <a href="#">BLOG</a>
-                </li>
-
-                
-
-              </ul>
-
-              <ul class="dropdown-panel-list">
-
-                <li class="menu-title">
-                  <a href="#">HOMBRES</a>
-                </li>
-
-                <li class="panel-list-item">
-                  <a href="#">ZAPATOS</a>
-                </li>
-
-                <li class="panel-list-item">
-                  <a href="#">BOLSAS</a>
-                </li>
-
-                <li class="panel-list-item">
-                  <a href="#">ROPA</a>
-                </li>
-
-                <li class="panel-list-item">
-                  <a href="#">ACCESORIOS TEXTILES</a>
-                </li>
-
-
-                
-
-              </ul>
-
-              <ul class="dropdown-panel-list">
-
-                <li class="menu-title">
-                  <a href="#">MUJERES</a>
-                </li>
-
-                <li class="panel-list-item">
-                  <a href="#">ZAPATOS</a>
-                </li>
-
-                <li class="panel-list-item">
-                  <a href="#">BOLSAS</a>
-                </li>
-
-                <li class="panel-list-item">
-                  <a href="#">ROPA</a>
-                </li>
-
-                <li class="panel-list-item">
-                  <a href="#">ACCESORIOS TEXTILES</a>
-                </li>
-
-
-              
-
-              </ul>
-
-              <ul class="dropdown-panel-list">
-
-                <li class="menu-title">
-                  <a href="#">JÓVENES/NIÑOS</a>
-                </li>
-
-                <li class="panel-list-item">
-                  <a href="#">RAQUETA</a>
-                </li>
-
-                <li class="panel-list-item">
-                  <a href="#">ZAPATOS</a>
-                </li>
-
-                <li class="panel-list-item">
-                  <a href="#">BOLSAS</a>
-                </li>
-
-                <li class="panel-list-item">
-                  <a href="#">ROPA</a>
-                </li>
-
-                <li class="panel-list-item">
-                  <a href="#">ACCESORIOS TEXTILES </a>
-                </li>
-
-               
-
-              </ul>
-
-            </div>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">HOMBRES</a>
-
-            <ul class="dropdown-list">
-
-              <li class="dropdown-item">
-                <a href="#">Shirt</a>
-              </li>
-
-              <li class="dropdown-item">
-                <a href="#">Shorts & Jeans</a>
-              </li>
-
-              <li class="dropdown-item">
-                <a href="#">Safety Shoes</a>
-              </li>
-
-              <li class="dropdown-item">
-                <a href="#">Wallet</a>
-              </li>
-
-            </ul>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">MUJERES</a>
-
-            <ul class="dropdown-list">
-
-              <li class="dropdown-item">
-                <a href="#">ROPA</a>
-              </li>
-
-              <li class="dropdown-item">
-                <a href="#">Earrings</a>
-              </li>
-
-              <li class="dropdown-item">
-                <a href="#">Necklace</a>
-              </li>
-
-              <li class="dropdown-item">
-                <a href="#">Makeup Kit</a>
-              </li>
-
-            </ul>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">ACCESORIOS</a>
-
-            <ul class="dropdown-list">
-
-              <li class="dropdown-item">
-                <a href="#">Earrings</a>
-              </li>
-
-              <li class="dropdown-item">
-                <a href="#">Couple Rings</a>
-              </li>
-
-              <li class="dropdown-item">
-                <a href="#">Necklace</a>
-              </li>
-
-              <li class="dropdown-item">
-                <a href="#">Bracelets</a>
-              </li>
-
-            </ul>
-          </li>
-
-          
-
-            </ul>
-          </li>
-
-         
-        </ul>
-
-      </div>
-
-    </nav>
-
-    <div class="mobile-bottom-navigation">
-
-      <button class="action-btn" data-mobile-menu-open-btn>
-        <ion-icon name="menu-outline"></ion-icon>
-      </button>
-
-      <button class="action-btn">
-        <ion-icon name="bag-handle-outline"></ion-icon>
-
-        <span class="count">0</span>
-      </button>
-
-      <button class="action-btn">
-        <ion-icon name="home-outline"></ion-icon>
-      </button>
-
-      <button class="action-btn">
-        <ion-icon name="heart-outline"></ion-icon>
-
-        <span class="count">0</span>
-      </button>
-
-      <button class="action-btn" data-mobile-menu-open-btn>
-        <ion-icon name="grid-outline"></ion-icon>
-      </button>
-
-    </div>
-
-    <nav class="mobile-navigation-menu  has-scrollbar" data-mobile-menu>
-
-      <div class="menu-top">
-        <h2 class="menu-title">Menu</h2>
-
-        <button class="menu-close-btn" data-mobile-menu-close-btn>
-          <ion-icon name="close-outline"></ion-icon>
-        </button>
-      </div>
-
-      <ul class="mobile-menu-category-list">
-
-        <li class="menu-category">
-          <a href="#" class="menu-title">Home</a>
-        </li>
-
-        <li class="menu-category">
-
-          <button class="accordion-menu" data-accordion-btn>
-            <p class="menu-title">Men's</p>
-
-            <div>
-              <ion-icon name="add-outline" class="add-icon"></ion-icon>
-              <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-            </div>
-          </button>
-
-          <ul class="submenu-category-list" data-accordion>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Shirt</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Shorts & Jeans</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Safety Shoes</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Wallet</a>
-            </li>
-
-          </ul>
-
-        </li>
-
-        <li class="menu-category">
-
-          <button class="accordion-menu" data-accordion-btn>
-            <p class="menu-title">Women's</p>
-
-            <div>
-              <ion-icon name="add-outline" class="add-icon"></ion-icon>
-              <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-            </div>
-          </button>
-
-          <ul class="submenu-category-list" data-accordion>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Dress & Frock</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Earrings</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Necklace</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Makeup Kit</a>
-            </li>
-
-          </ul>
-
-        </li>
-
-        <li class="menu-category">
-
-          <button class="accordion-menu" data-accordion-btn>
-            <p class="menu-title">Jewelry</p>
-
-            <div>
-              <ion-icon name="add-outline" class="add-icon"></ion-icon>
-              <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-            </div>
-          </button>
-
-          <ul class="submenu-category-list" data-accordion>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Earrings</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Couple Rings</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Necklace</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Bracelets</a>
-            </li>
-
-          </ul>
-
-        </li>
-
-        <li class="menu-category">
-
-          <button class="accordion-menu" data-accordion-btn>
-            <p class="menu-title">Perfume</p>
-
-            <div>
-              <ion-icon name="add-outline" class="add-icon"></ion-icon>
-              <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-            </div>
-          </button>
-
-          <ul class="submenu-category-list" data-accordion>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Clothes Perfume</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Deodorant</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Flower Fragrance</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Air Freshener</a>
-            </li>
-
-          </ul>
-
-        </li>
-
-        <li class="menu-category">
-          <a href="#" class="menu-title">Blog</a>
-        </li>
-
-        <li class="menu-category">
-          <a href="#" class="menu-title">Hot Offers</a>
-        </li>
-
-      </ul>
-
-      <div class="menu-bottom">
-
-        <ul class="menu-category-list">
-
-          <li class="menu-category">
-
-            <button class="accordion-menu" data-accordion-btn>
-              <p class="menu-title">Language</p>
-
-              <ion-icon name="caret-back-outline" class="caret-back"></ion-icon>
+          <!-- Botón de menú móvil -->
+          <div class="lg:hidden">
+            <button id="mobile-menu-button"
+              class="text-white hover:text-blue-400 transition duration-300 ease-in-out focus:outline-none">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
             </button>
-
-            <ul class="submenu-category-list" data-accordion>
-
-              <li class="submenu-category">
-                <a href="#" class="submenu-title">English</a>
-              </li>
-
-              <li class="submenu-category">
-                <a href="#" class="submenu-title">Espa&ntilde;ol</a>
-              </li>
-
-              <li class="submenu-category">
-                <a href="#" class="submenu-title">Fren&ccedil;h</a>
-              </li>
-
-            </ul>
-
-          </li>
-
-          <li class="menu-category">
-            <button class="accordion-menu" data-accordion-btn>
-              <p class="menu-title">Currency</p>
-              <ion-icon name="caret-back-outline" class="caret-back"></ion-icon>
-            </button>
-
-            <ul class="submenu-category-list" data-accordion>
-              <li class="submenu-category">
-                <a href="#" class="submenu-title">USD &dollar;</a>
-              </li>
-
-              <li class="submenu-category">
-                <a href="#" class="submenu-title">EUR &euro;</a>
-              </li>
-            </ul>
-          </li>
-
-        </ul>
-
-        <ul class="menu-social-container">
-
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-facebook"></ion-icon>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-instagram"></ion-icon>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-linkedin"></ion-icon>
-            </a>
-          </li>
-
-        </ul>
-
-      </div>
-
-    </nav>
-
-  </header>
-
-
-
-
-
-  <!--
-    - MAIN
-  -->
-
-  <main>
-
-    <!--
-      - BANNER
-    -->
-
-    <div class="banner">
-
-      <div class="container">
-
-        <div class="slider-container has-scrollbar">
-
-          <div class="slider-item">
-
-            <img src="./assets/images/djokovic large 2.png "  class="banner-img">
-
-            <div class="banner-content">
-
-              
-
-            </div>
-
           </div>
-
-          <div class="slider-item">
-
-            <img src="./assets/images/djokovic large.png" alt="modern sunglasses" class="banner-img">
-
-            <div class="banner-content">
-
-              <p class="banner-subtitle"></p>
-
-              <h2 class="banner-title"></h2>
-
-              
-
-              <a href="#" class="banner-btn"></a>
-
-            </div>
-
-          </div>
-
-          
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-
-
-
-    <!--
-      - CATEGORY
-    -->
-
-    <div class="category">
-
-      <div class="container">
-
-        <div class="category-item-container has-scrollbar">
-
-          <div class="category-item">
-
-            <div class="category-img-box">
-              <img src="./assets/images/icons/dress.svg" alt="dress & frock" width="30">
-            </div>
-
-            <div class="category-content-box">
-
-              <div class="category-content-flex">
-                <h3 class="category-item-title">ROPA DE VERANO</h3>
-
-                <p class="category-item-amount">(53)</p>
-              </div>
-
-              <a href="#" class="category-btn">Show all</a>
-
-            </div>
-
-          </div>
-
-          <div class="category-item">
-
-            <div class="category-img-box">
-              <img src="./assets/images/icons/coat.svg" alt="winter wear" width="30">
-            </div>
-
-            <div class="category-content-box">
-
-              <div class="category-content-flex">
-                <h3 class="category-item-title">ROPA DE INVIERNO
-
-                <p class="category-item-amount">(58)</p>
-              </div>
-
-              <a href="#" class="category-btn">Show all</a>
-
-            </div>
-
-          </div>
-
-          <div class="category-item">
-
-            <div class="category-img-box">
-              <img src="./assets/images/icons/glasses.svg" alt="glasses & lens" width="30">
-            </div>
-
-            <div class="category-content-box">
-
-              <div class="category-content-flex">
-                <h3 class="category-item-title">ACCESORIOS</h3>
-
-                <p class="category-item-amount">(68)</p>
-              </div>
-
-              <a href="#" class="category-btn">Show all</a>
-
-            </div>
-
-          </div>
-
-          <div class="category-item">
-
-            <div class="category-img-box">
-              <img src="./assets/images/icons/shorts.svg" alt="shorts & jeans" width="30">
-            </div>
-
-            <div class="category-content-box">
-
-              <div class="category-content-flex">
-                <h3 class="category-item-title">Shorts & jeans</h3>
-
-                <p class="category-item-amount">(84)</p>
-              </div>
-
-              <a href="#" class="category-btn">Show all</a>
-
-            </div>
-
-          </div>
-
-          <div class="category-item">
-
-            <div class="category-img-box">
-              <img src="./assets/images/icons/tee.svg" alt="t-shirts" width="30">
-            </div>
-
-            <div class="category-content-box">
-
-              <div class="category-content-flex">
-                <h3 class="category-item-title">T-shirts</h3>
-
-                <p class="category-item-amount">(35)</p>
-              </div>
-
-              <a href="#" class="category-btn">Show all</a>
-
-            </div>
-
-          </div>
-
-          <div class="category-item">
-
-            <div class="category-img-box">
-              <img src="./assets/images/icons/jacket.svg" alt="jacket" width="30">
-            </div>
-
-            <div class="category-content-box">
-
-              <div class="category-content-flex">
-                <h3 class="category-item-title">Jacket</h3>
-
-                <p class="category-item-amount">(16)</p>
-              </div>
-
-              <a href="#" class="category-btn">Show all</a>
-
-            </div>
-
-          </div>
-
-          <div class="category-item">
-
-            <div class="category-img-box">
-              <img src="./assets/images/icons/watch.svg" alt="watch" width="30">
-            </div>
-
-            <div class="category-content-box">
-
-              <div class="category-content-flex">
-                <h3 class="category-item-title">Watch</h3>
-
-                <p class="category-item-amount">(27)</p>
-              </div>
-
-              <a href="#" class="category-btn">Show all</a>
-
-            </div>
-
-          </div>
-
-          <div class="category-item">
-
-            <div class="category-img-box">
-              <img src="./assets/images/icons/hat.svg" alt="hat & caps" width="30">
-            </div>
-
-            <div class="category-content-box">
-
-              <div class="category-content-flex">
-                <h3 class="category-item-title">Hat & caps</h3>
-
-                <p class="category-item-amount">(39)</p>
-              </div>
-
-              <a href="#" class="category-btn">Show all</a>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-
-
-
-    <!--
-      - PRODUCT
-    -->
-
-    <div class="product-container">
-
-      <div class="container">
-
-
-        <!--
-          - SIDEBAR
-        -->
-
-
-
-
-
-        <div class="product-box">
-
-          <!--
-            - PRODUCT MINIMAL
-          -->
-
-          <div class="product-minimal">
-
-            <div class="product-showcase">
-
-              <h2 class="title">Nuevos Productos</h2>
-
-              <div class="showcase-wrapper has-scrollbar">
-
-                <div class="showcase-container">
-
-                  <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="./assets/images/chompa1.jpg" alt="relaxed short full sleeve t-shirt" width="70" class="showcase-img">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">Chamarra</h4>
-                      </a>
-
-                    
-
-                      <div class="price-box">
-                        <p class="price">Bs.-45.00</p>
-                    
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  <div class="showcase">
-                  
-                    <a href="#" class="showcase-img-box">
-                      <img src="./assets/images/goraa 1.jpg" alt="girls pink embro design top" class="showcase-img" width="70">
-                    </a>
-                  
-                    <div class="showcase-content">
-                  
-                      <a href="#">
-                        <h4 class="showcase-title">Gorra</h4>
-                      </a>
-                  
-                     
-                  
-                      <div class="price-box">
-                        <p class="price">Bs.- 13.00</p>
-                       
-                      </div>
-                  
-                    </div>
-                  
-                  </div>
-
-                  <div class="showcase">
-                  
-                    <a href="#" class="showcase-img-box">
-                      <img src="./assets/images/azul.jpg" alt="black floral wrap midi skirt" class="showcase-img"
-                        width="70">
-                    </a>
-                  
-                    <div class="showcase-content">
-                  
-                      <a href="#">
-                        <h4 class="showcase-title">Polera Dry-fit Azul</h4>
-                      </a>
-                  
-                  
-                      <div class="price-box">
-                        <p class="price">Bs.-26.00</p>
-                        
-                      </div>
-                  
-                    </div>
-                  
-                  </div>
-
-                  <div class="showcase">
-                  
-                    <a href="#" class="showcase-img-box">
-                      <img src="./assets/images/bolsa 2.jpg"  alt="pure garment dyed cotton shirt" class="showcase-img"
-                        width="70">
-                    </a>
-                  
-                    <div class="showcase-content">
-                  
-                      <a href="#">
-                        <h4 class="showcase-title">Bolson</h4>
-                      </a>
-                  
-                    
-                  
-                      <div class="price-box">
-                        <p class="price">Bs.-31.00</p>
-                        
-                      </div>
-                  
-                    </div>
-                  
-                  </div>
-
-                </div>
-
-                <div class="showcase-container">
-                
-                  <div class="showcase">
-                
-                    <a href="#" class="showcase-img-box">
-                      <img src="./assets/images/falda 4.jpg" alt="men yarn fleece full-zip jacket" class="showcase-img"
-                        width="70">
-                    </a>
-                
-                    <div class="showcase-content">
-                
-                      <a href="#">
-                        <h4 class="showcase-title">Falda Deportiva</h4>
-                      </a>
-            
-                
-                      <div class="price-box">
-                        <p class="price">Bs.-21.00</p>
-                      
-                      </div>
-                
-                    </div>
-                
-                  </div>
-                
-                  <div class="showcase">
-                
-                    <a href="#" class="showcase-img-box">
-                      <img src="./assets/images/raqueta 2.png" alt="mens winter leathers jackets" class="showcase-img"
-                        width="70">
-                    </a>
-                
-                    <div class="showcase-content">
-                
-                      <a href="#">
-                        <h4 class="showcase-title">Raqueta</h4>
-                      </a>
-                
-                
-                      <div class="price-box">
-                        <p class="price">Bs.-320.00</p>
-                        
-                      </div>
-                
-                    </div>
-                
-                  </div>
-                
-                  <div class="showcase">
-                
-                    <a href="#" class="showcase-img-box">
-                      <img src="./assets/images/chompa1.jpg" alt="mens winter leathers jackets" class="showcase-img"
-                        width="70">
-                    </a>
-                
-                    <div class="showcase-content">
-                
-                      <a href="#">
-                        <h4 class="showcase-title">chompa1</h4>
-                      </a>
-                
-                
-                      <div class="price-box">
-                        <p class="price">Bs.-50.00</p>
-                      
-                      </div>
-                
-                    </div>
-                
-                  </div>
-                
-                  <div class="showcase">
-                
-                    <a href="#" class="showcase-img-box">
-                      <img src="./assets/images/bolsa 3.jpg" alt="better basics french terry sweatshorts" class="showcase-img"
-                        width="70">
-                    </a>
-                
-                    <div class="showcase-content">
-                
-                      <a href="#">
-                        <h4 class="showcase-title">Bolson  </h4>
-                      </a>
-                
-     
-                      <div class="price-box">
-                        <p class="price">Bs.-20.00</p>
-                        >
-                      </div>
-                
-                    </div>
-                
-                  </div>
-                
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="product-showcase">
-            
-              <h2 class="title">Trending</h2>
-            
-              <div class="showcase-wrapper  has-scrollbar">
-            
-                <div class="showcase-container">
-            
-                  <div class="showcase">
-            
-                    <a href="#" class="showcase-img-box">
-                      <img src="./assets/images/chompa 4.jpg" alt="running & trekking shoes - white" class="showcase-img"
-                        width="70">
-                    </a>
-            
-                    <div class="showcase-content">
-            
-                      <a href="#">
-                        <h4 class="showcase-title">Chamarra Morada</h4>
-                      </a>
-            
-             
-            
-                      <div class="price-box">
-                        <p class="price">Bs.-49.00</p>
-                        
-                      </div>
-            
-                    </div>
-            
-                  </div>
-            
-                  <div class="showcase">
-            
-                    <a href="#" class="showcase-img-box">
-                      <img src="./assets/images/falda 1.jpg" alt="trekking & running shoes - black" class="showcase-img"
-                        width="70">
-                    </a>
-            
-                    <div class="showcase-content">
-            
-                      <a href="#">
-                        <h4 class="showcase-title">Falda Violeta</h4>
-                      </a>
-            
-                  
-            
-                      <div class="price-box">
-                        <p class="price">Bs.-28.00</p>
-                
-                      </div>
-            
-                    </div>
-            
-                  </div>
-            
-                  <div class="showcase">
-            
-                    <a href="#" class="showcase-img-box">
-                      <img src="./assets/images/raqueta 2.png" alt="womens party wear shoes" class="showcase-img"
-                        width="70">
-                    </a>
-            
-                    <div class="showcase-content">
-            
-                      <a href="#">
-                        <h4 class="showcase-title">Raqueta</h4>
-                      </a>
-            
-            
-                      <div class="price-box">
-                        <p class="price">Bs.- 2094.00</p>
-                        
-                      </div>
-            
-                    </div>
-            
-                  </div>
-            
-                  <div class="showcase">
-            
-                    <a href="#" class="showcase-img-box">
-                      <img src="./assets/images/goraa 1.jpg" alt="sports claw women's shoes" class="showcase-img"
-                        width="70">
-                    </a>
-            
-                    <div class="showcase-content">
-            
-                      <a href="#">
-                        <h4 class="showcase-title">Gorra Negra Deportiva</h4>
-                      </a>
-            
-              
-                      <div class="price-box">
-                        <p class="price">Bs.-24.00</p>
-                        
-                      </div>
-            
-                    </div>
-            
-                  </div>
-            
-                </div>
-            
-                <div class="showcase-container">
-            
-                  <div class="showcase">
-            
-                    <a href="#" class="showcase-img-box">
-                      <img src="./assets/images/raqueta 2.png" alt="air tekking shoes - white" class="showcase-img"
-                        width="70">
-                    </a>
-            
-                    <div class="showcase-content">
-            
-                      <a href="#">
-                        <h4 class="showcase-title">Air Trekking Shoes - white</h4>
-                      </a>
-            
-                   
-            
-                      <div class="price-box">
-                        <p class="price">$52.00</p>
-                        <del>$55.00</del>
-                      </div>
-            
-                    </div>
-            
-                  </div>
-            
-                  <div class="showcase">
-            
-                    <a href="#" class="showcase-img-box">
-                      <img src="./assets/images/raqueta 5.avif" alt="Boot With Suede Detail" class="showcase-img" width="70">
-                    </a>
-            
-                    <div class="showcase-content">
-            
-                      <a href="#">
-                        <h4 class="showcase-title">Boot With Suede Detail</h4>
-                      </a>
-            
-           
-            
-                      <div class="price-box">
-                        <p class="price">$20.00</p>
-                        <del>$30.00</del>
-                      </div>
-            
-                    </div>
-            
-                  </div>
-            
-                  <div class="showcase">
-            
-                    <a href="#" class="showcase-img-box">
-                      <img src="./assets/images/raqueta 3.png" alt="men's leather formal wear shoes" class="showcase-img"
-                        width="70">
-                    </a>
-            
-                    <div class="showcase-content">
-            
-                      <a href="#">
-                        <h4 class="showcase-title">Men's Leather Formal Wear shoes</h4>
-                      </a>
-            
     
-                      <div class="price-box">
-                        <p class="price">$56.00</p>
-                        <del>$78.00</del>
-                      </div>
-            
-                    </div>
-            
-                  </div>
-            
-                  <div class="showcase">
-            
-                    <a href="#" class="showcase-img-box">
-                      <img src="./assets/images/raqueta 8.jpg" alt="casual men's brown shoes" class="showcase-img" width="70">
-                    </a>
-            
-                    <div class="showcase-content">
-            
-                      <a href="#">
-                        <h4 class="showcase-title">Casual Men's Brown shoes</h4>
-                      </a>
-            
-              
-            
-                      <div class="price-box">
-                        <p class="price">$50.00</p>
-                       
-                      </div>
-            
-                    </div>
-            
-                  </div>
-            
-                </div>
-            
-              </div>
-            
-            </div>
-
-            
-            
-                    </div>
-            
-                  </div>
-            
-                  
-            
-               
-            
-                   
-            
-                 
-            
-                  
-            
-                 
-            
-                    </div>
-            
-                  </div>
-            
-                </div>
-            
-              </div>
-            
-            </div>
-
-          </div>
-
-
-
-          <!--
-            - PRODUCT FEATURED
-          -->
-
-          <div class="product-featured">
-
-            <h2 class="title">Oferta del Dia</h2>
-
-            <div class="showcase-wrapper has-scrollbar">
-
-              <div class="showcase-container">
-
-                <div class="showcase">
-                  
-                  <div class="showcase-banner">
-                    <img src="./assets/images/bolivia.jpg" alt="shampoo, conditioner & facewash packs" class="showcase-img">
-                  </div>
-
-                  <div class="showcase-content">
-                    
-                    
-
-                    <a href="#">
-                      <h3 class="showcase-title">Polera - Equipo Bolivia</h3>
-                    </a>
-
-                    <p class="showcase-desc">
-                      Polera oficial de equipo boliviano
-                    </p>
-
-                    <div class="price-box">
-                      <p class="price">$150.00</p>
-
-                      <del>$200.00</del>
-                    </div>
-
-                    <button class="add-cart-btn">add to cart</button>
-
-                    <div class="showcase-status">
-                      <div class="wrapper">
-                        <p>
-                          already sold: <b>20</b>
-                        </p>
-
-                        <p>
-                          available: <b>40</b>
-                        </p>
-                      </div>
-
-                      <div class="showcase-status-bar"></div>
-                    </div>
-
-                    <div class="countdown-box">
-
-                      
-
-                      
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-              
-                      </div>
-              
-                    </div>
-              
-                  </div>
-              
-                </div>
-              
-              </div>
-
-            </div>
-
-          </div>
-
-
-
-          <!--
-            - PRODUCT GRID
-          -->
-
-          <div class="product-main">
-
-            <h2 class="title">Nuevos Productos</h2>
-
-            <div class="product-grid">
-
-              <div class="showcase">
-
-                <div class="showcase-banner">
-
-                  <img src="./assets/images/falda 3.jpg" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
-                  
-
-                  <p class="showcase-badge">15%</p>
-
-                  <div class="showcase-actions">
-
-                    <button class="btn-action">
-                      <ion-icon name="heart-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
-
-                  </div>
-
-                </div>
-
-                <div class="showcase-content">
-
-                  
-
-                  <a href="#">
-                    <h3 class="showcase-title">Falda Gris</h3>
-                  </a>
-
-                 
-
-                  <div class="price-box">
-                    <p class="price">Bs.-48.00</p>
-                  
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div class="showcase">
-              
-                <div class="showcase-banner">
-                  <img src="./assets/images/bolsa 5.jpg" alt="Pure Garment Dyed Cotton Shirt" class="product-img default"
-                    width="300">
-                  
-              
-                  <p class="showcase-badge angle black">sale</p>
-              
-                  <div class="showcase-actions">
-                    <button class="btn-action">
-                      <ion-icon name="heart-outline"></ion-icon>
-                    </button>
-              
-                    <button class="btn-action">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-              
-                    <button class="btn-action">
-                      <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-              
-                    <button class="btn-action">
-                      <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
-                  </div>
-                </div>
-              
-                <div class="showcase-content">
-                  
-                  <h3>
-                    <a href="#" class="showcase-title">Bolson Negro </a>
-                  </h3>
-              
-                  
-                  <div class="price-box">
-                    <p class="price">Bs.-45.00</p>
-                  
-                  </div>
-              
-                </div>
-              
-              </div>
-
-              <div class="showcase">
-              
-                <div class="showcase-banner">
-                  <img src="./assets/images/gorra 2.jpg" alt="MEN Yarn Fleece Full-Zip Jacket" class="product-img default"
-                    width="300">
-                  
-              
-                  <div class="showcase-actions">
-                    <button class="btn-action">
-                      <ion-icon name="heart-outline"></ion-icon>
-                    </button>
-              
-                    <button class="btn-action">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-              
-                    <button class="btn-action">
-                      <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-              
-                    <button class="btn-action">
-                      <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
-                  </div>
-                </div>
-              
-                <div class="showcase-content">
-                 
-              
-                  <h3>
-                    <a href="#" class="showcase-title">Gorra Blanca</a>
-                  </h3>
-              
-                  
-                  <div class="price-box">
-                    <p class="price">Bs.-18.00</p>
-                  
-                  </div>
-              
-                </div>
-              
-              </div>
-
-              <div class="showcase">
-              
-                <div class="showcase-banner">
-                  <img src="./assets/images/falda 4.jpg" alt="Black Floral Wrap Midi Skirt" class="product-img default"
-                    width="300">
-                 
-              
-                  <p class="showcase-badge angle pink">new</p>
-              
-                  <div class="showcase-actions">
-                    <button class="btn-action">
-                      <ion-icon name="heart-outline"></ion-icon>
-                    </button>
-              
-                    <button class="btn-action">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-              
-                    <button class="btn-action">
-                      <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-              
-                    <button class="btn-action">
-                      <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
-                  </div>
-                </div>
-              
-                <div class="showcase-content">
-                 
-                  <h3>
-                    <a href="#" class="showcase-title">Falda Celeste</a>
-                  </h3>
-              
-                  
-              
-                  <div class="price-box">
-                    <p class="price">Bs.-25.00</p>
-                
-                  </div>
-              
-                </div>
-              
-              </div>
-
-              <div class="showcase">
-              
-                <div class="showcase-banner">
-                  <img src="./assets/images/bolsa 6.jpg" alt="Casual Men's Brown shoes" class="product-img default"
-                    width="300">
-                
-              
-                  <div class="showcase-actions">
-                    <button class="btn-action">
-                      <ion-icon name="heart-outline"></ion-icon>
-                    </button>
-              
-                    <button class="btn-action">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-              
-                    <button class="btn-action">
-                      <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-              
-                    <button class="btn-action">
-                      <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
-                  </div>
-                </div>
-              
-                <div class="showcase-content">
-                  
-              
-                  <h3>
-                    <a href="#" class="showcase-title">Bolson Blanco</a>
-                  </h3>
-              
-                  
-              
-                  <div class="price-box">
-                    <p class="price">Bs.-99.00</p>
-                    
-                  </div>
-              
-                </div>
-              
-              </div>
-
-              <div class="showcase">
-              
-                <div class="showcase-banner">
-                  <img src="./assets/images/gorra 3.jpg" alt="Pocket Watch Leather Pouch" class="product-img default"
-                    width="300">
-                 
-              
-                  <p class="showcase-badge angle black">sale</p>
-              
-                  <div class="showcase-actions">
-                    <button class="btn-action">
-                      <ion-icon name="heart-outline"></ion-icon>
-                    </button>
-              
-                    <button class="btn-action">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-              
-                    <button class="btn-action">
-                      <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-              
-                    <button class="btn-action">
-                      <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
-                  </div>
-                </div>
-              
-                <div class="showcase-content">
-                 
-                  <h3>
-                    <a href="#" class="showcase-title">Gorra de Vestir - Guinda </a>
-                  </h3>
-              
-                  
-              
-                  <div class="price-box">
-                    <p class="price">Bs.-150.00</p>
-                  
-                  </div>
-              
-                </div>
-              
-              </div>
-
-              
-
-              
-                </div>
-              
-              </div>
-
-            </div>
-
-          </div>
-
+          <!-- Menú en escritorio -->
+          <nav class="hidden lg:flex space-x-8 text-lg font-medium">
+            <a href="http://157.230.235.125:5000/" class="hover:text-blue-400 transition duration-200">start</a>
+            <a href="http://157.230.235.125:5000/dashboard" class="hover:text-blue-400 transition duration-200">Dashboard</a>
+            <a href="#" class="hover:text-blue-400 transition duration-200">About</a>
+          </nav>
         </div>
-
-      </div>
-
-    </div>
-
-
-
-
-
-    <!--
-      - TESTIMONIALS, CTA & SERVICE
-    -->
-
-    <div>
-
-      <div class="container">
-
-        <div class="testimonials-box">
-
-          <!--
-            - TESTIMONIALS
-          -->
-
-
-
-          <!--
-            - CTA
-          -->
-
-          
-
-
-
-          <!--
-            - SERVICE
-          -->
-
-          <div class="service">
-
-            <h2 class="title">Our Services</h2>
-
-            <div class="service-container">
-
-              <a href="#" class="service-item">
-
-                <div class="service-icon">
-                  <ion-icon name="boat-outline"></ion-icon>
-                </div>
-
-                <div class="service-content">
-
-                  <h3 class="service-title">Envios a todo el mundo</h3>
-                  <p class="service-desc">Para pedidos grandes </p>
-
-                </div>
-
-              </a>
-
-              <a href="#" class="service-item">
-              
-                <div class="service-icon">
-                  <ion-icon name="rocket-outline"></ion-icon>
-                </div>
-              
-                <div class="service-content">
-              
-                  <h3 class="service-title">Envios en menos de 24 horas </h3>
-                  <p class="service-desc">USolo dentro de Bolivia </p>
-              
-                </div>
-              
-              </a>
-
-              <a href="#" class="service-item">
-              
-                <div class="service-icon">
-                  <ion-icon name="call-outline"></ion-icon>
-                </div>
-              
-                <div class="service-content">
-              
-                  <h3 class="service-title">Atencion al Cliente</h3>
-                  <p class="service-desc">De: 8:00 - 23:00 </p>
-             
-                </div>
-              
-              </a>
-
-              <a href="#" class="service-item">
-              
-                <div class="service-icon">
-                  <ion-icon name="arrow-undo-outline"></ion-icon>
-                </div>
-              
-                <div class="service-content">
-              
-                  <h3 class="service-title">Politica de Devoluciones</h3>
-                  <p class="service-desc">Fácil y Rápido</p>
-              
-                </div>
-              
-              </a>
-
-              <a href="#" class="service-item">
-              
-                <div class="service-icon">
-                  <ion-icon name="ticket-outline"></ion-icon>
-                </div>
-              
-                <div class="service-content">
-              
-                  <h3 class="service-title">Desceuntos desde el 30%</h3>
-                  <p class="service-desc">Para pedidos arriba de $100</p>
-              
-                </div>
-              
-              </a>
-
-            </div>
-
-          </div>
-
+    
+    
+        <!-- Menú móvil desplegable -->
+        <div id="mobile-menu" class="hidden lg:hidden flex-col space-y-3 pb-4 animate-slide-down">
+          <a href="/" class="block text-white hover:text-blue-400 transition">Home</a>
+          <a href="/dashboard" class="block text-white hover:text-blue-400 transition">Dashboard</a>
+          <a href="#" class="block text-white hover:text-blue-400 transition">About</a>
         </div>
-
       </div>
+    </header>
+      <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+          const menu = document.getElementById('mobile-menu');
+          menu.classList.toggle('hidden');
+        });
 
-    </div>
+      </script>
+  <section class="max-w-5xl mx-auto px-4 py-10">
+<h1 class="text-4xl font-bold mb-6 text-blue-300">
+  User Manual: Contact Research Tool
+</h1>
+
+
+    <article class="space-y-10">
+      <!-- 1. Introducción -->
+<!-- Fragmento actualizado del Manual de Usuario -->
+<div class="bg-secondary p-6 rounded-lg shadow">
+  <h2 class="text-2xl font-semibold mb-2 text-blue-200">1. Introduction</h2>
+  <p>
+    The <strong>Contact Research Tool</strong> is an intelligent tool based on <span
+      class="text-purple-300 font-semibold">Machine Learning</span> technologies, which allows you to find reliable
+    contact information using key data such as name, zip code, email, and phone number. It is ideal for
+    <strong>marketing, sales, business research</strong>, and prospect analysis.
+  </p>
+  <p class="mt-2">
+    It is recommended not to select <strong>all platforms</strong> simultaneously, as some may return errors or
+    inconsistent results due to access limitations or different formats.
+  </p>
+  <!-- Start Button -->
+  <div class="mt-6 text-center">
+    <a href="http://157.230.235.125:5000/"
+      class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out">
+      🚀 Start Using the Tool
+    </a>
+  </div>
+</div>
+
+<!-- 2. Campos principales - Ejemplo Práctico -->
+<div class="bg-secondary p-6 rounded-lg shadow">
+  <h2 class="text-2xl font-semibold mb-4 text-blue-200">2. Practical Example</h2>
+  <p>
+    Suppose you want to find contact information for a customer named <strong>Douglas B Clendaniel</strong>,
+    residing in the area with postal code <strong>21620</strong>. You just need to fill in the following fields:
+  </p>
+
+  <ul class="list-disc ml-6 mt-4 space-y-1">
+    <li><strong>Customer Name:</strong> Douglas B Clendaniel</li>
+    <li><strong>Postal Code:</strong> 21620</li>
+    <li><strong>Site Address:</strong> (optional)</li>
+    <li><strong>Maximum Pages:</strong> 1</li>
+  </ul>
+
+  <p class="mt-4">
+    Then, select 1 or 2 reliable platforms and click <strong>Search</strong> to start the search.
+  </p>
+
+  <!-- Illustrative Image -->
+  <div class="mt-6">
+    <img src="1.png" alt="Example search with Douglas B Clendaniel's data"
+      class="rounded-lg border border-blue-900 shadow-lg mx-auto max-w-xl">
+    <p class="text-center text-sm text-gray-400 mt-2">Visual example of the completed form.</p>
+  </div>
+</div>
 
 
 
+<!-- Modificación del bloque 3: Tags -->
+<div class="bg-secondary p-6 rounded-lg shadow">
+<h2 class="text-2xl font-semibold mb-2 text-blue-200">3. Search Platforms</h2>
+<p>Select one or more sources from where you want to obtain the data. <span class="text-red-300 font-semibold">It is not
+    recommended to select all at once.</span></p>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm mt-4">
+  <span class="tag selected">hunter.io</span>
+  <span class="tag selected">lusha.com</span>
+  <span class="tag selected">pipl.ai</span>
+  <span class="tag selected">peopledatalabs.com</span>
+  <span class="tag selected">voilanorbert.com</span>
+  <span class="tag selected">rocketreach.co</span>
+</div>
+<div class="mt-6">
+  <img src="2.png" alt="Example search with Douglas B Clendaniel's data"
+    class="rounded-lg border border-blue-900 shadow-lg mx-auto max-w-xl">
+  <p class="text-center text-sm text-gray-400 mt-2">Visual example of the completed form.</p>
+</div>
+
+      <!-- 4. Cómo usar -->
+<!-- 4. Cómo usar -->
+<div class="bg-secondary p-6 rounded-lg shadow">
+  <h2 class="text-2xl font-semibold mb-2 text-blue-200">4. How to Use the Tool</h2>
+  <ol class="list-decimal ml-6 space-y-2">
+    <li>Enter the known contact details, such as name, address, or postal code.</li>
+    <li>Select only the most relevant platforms. ⚠️ Avoid selecting all at once to prevent errors or conflicting
+      results.</li>
+    <li>Click on <strong>Search</strong> to begin. <strong>Machine Learning</strong> techniques will be used to find
+      optimal matches.</li>
+    <li>Search example:
+      <ul class="list-disc ml-6 mt-2 text-sm">
+        <li><strong>Customer Name:</strong> Douglas B Clendaniel</li>
+        <li><strong>Zip Code:</strong> 21620</li>
+      </ul>
+    </li>
+    <li>The results will be displayed in a structured format, such as:
+      <pre class="bg-btn p-4 rounded text-sm mt-2 text-gray-200 overflow-auto">
+{
+  "phones": ["+1 (410) 778-XXXX"],
+  "emails": ["douglas.b@example.com"],
+  "zip_code": "21620"
+}
+      </pre>
+    </li>
+  </ol>
+  <div class="mt-6">
+    <img src="3.png" alt="Example search with Douglas B Clendaniel's data"
+      class="rounded-lg border border-blue-900 shadow-lg mx-auto max-w-xl">
+    <p class="text-center text-sm text-gray-400 mt-2">Visual example of the completed form.</p>
+  </div>
+</div>
 
 
-    <!--
-      - BLOG
-    -->
 
-   
+      <!-- 5. Consejos -->
+<div class="bg-secondary p-6 rounded-lg shadow">
+  <h2 class="text-2xl font-semibold mb-2 text-blue-200">5. Usage Tips</h2>
+  <ul class="list-disc ml-6 space-y-2">
+    <li>Using name + postal code improves results.</li>
+    <li>Try different combinations if no information is found.</li>
+    <li>Avoid typos or incomplete data.</li>
+  </ul>
+</div>
 
 
-  <!--
-    - FOOTER
-  -->
-
-  <footer>
-
-    <div class="footer-category">
-
-      <div class="container">
-
-      
-
-      </div>
-
-    </div>
-
-    <div class="footer-nav">
-
-      <div class="container">
-
-       
-
-        <ul class="footer-nav-list">
-        
-          <li class="footer-nav-item">
-            <h2 class="nav-title">Productos</h2>
-          </li>
-        
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Precios Bajos</a>
-          </li>
-        
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Nuevos Productos</a>
-          </li>
-        
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Más Vendidos</a>
-          </li>
-        
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Contactanos</a>
-          </li>
-        
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Ubicación</a>
-          </li>
-        
-        </ul>
-
-        
-        <ul class="footer-nav-list">
-        
-        
-        
-        </ul>
-
-        <ul class="footer-nav-list">
-
-          <li class="footer-nav-item">
-            <h2 class="nav-title">Contact</h2>
-          </li>
-
-          <li class="footer-nav-item flex">
-            <div class="icon-box">
-              <ion-icon name="location-outline"></ion-icon>
-            </div>
-
-            <address class="content">
-              Santa Cruz, Bolivia
-            </address>
-          </li>
-
-          <li class="footer-nav-item flex">
-            <div class="icon-box">
-              <ion-icon name="call-outline"></ion-icon>
-            </div>
-
-            <a href="tel:+607936-8058" class="footer-nav-link">+591 62086102</a>
-          </li>
-
-          <li class="footer-nav-item flex">
-            <div class="icon-box">
-              <ion-icon name="mail-outline"></ion-icon>
-            </div>
-
-            <a href="mailto:example@gmail.com" class="footer-nav-link">example@gmail.com</a>
-          </li>
-
-        </ul>
-
-        <ul class="footer-nav-list">
-
-          <li class="footer-nav-item">
-            <h2 class="nav-title">Siguenos en Nuestras Redes Sociales</h2>
-          </li>
-
-          <li>
-            <ul class="social-link">
-
-              <li class="footer-nav-item">
-                <a href="#" class="footer-nav-link">
-                  <ion-icon name="logo-facebook"></ion-icon>
-                </a>
-              </li>
-
-              <li class="footer-nav-item">
-                <a href="#" class="footer-nav-link">
-                  <ion-icon name="logo-twitter"></ion-icon>
-                </a>
-              </li>
-
-              <li class="footer-nav-item">
-                <a href="#" class="footer-nav-link">
-                  <ion-icon name="logo-linkedin"></ion-icon>
-                </a>
-              </li>
-
-              <li class="footer-nav-item">
-                <a href="#" class="footer-nav-link">
-                  <ion-icon name="logo-instagram"></ion-icon>
-                </a>
-              </li>
-
-            </ul>
-          </li>
-
-        </ul>
-
-      </div>
-
-    </div>
-
-    <div class="footer-bottom">
-
-      <div class="container">
-
-        <img src="./assets/images/payment.png" alt="payment method" class="payment-img">
-
-        <p class="copyright">
-          Copyright &copy; <a href="#">Deuce</a> all rights reserved.
-        </p>
-
-      </div>
-
-    </div>
-
-  </footer>
+      <!-- 6. FAQs -->
+<div class="bg-secondary p-6 rounded-lg shadow">
+  <h2 class="text-2xl font-semibold mb-2 text-blue-200">6. Frequently Asked Questions (FAQs)</h2>
+  <div class="space-y-4">
+    <details class="bg-btn p-4 rounded cursor-pointer">
+      <summary class="font-medium text-white">Why is there no email shown?</summary>
+      <p class="mt-2 text-gray-200">Some sources restrict this information due to legal or privacy reasons.</p>
+    </details>
+    <details class="bg-btn p-4 rounded cursor-pointer">
+      <summary class="font-medium text-white">Can I use only the customer's name?</summary>
+      <p class="mt-2 text-gray-200">Yes, although it is recommended to add more data for better accuracy.</p>
+    </details>
+    <details class="bg-btn p-4 rounded cursor-pointer">
+      <summary class="font-medium text-white">What should I do if there are no results?</summary>
+      <p class="mt-2 text-gray-200">Check that the data is correct or try using a different source.</p>
+    </details>
+  </div>
+</div>
 
 
 
 
 
+<!-- 7. Conclusion -->
+<div class="bg-secondary p-6 rounded-lg shadow">
+  <h2 class="text-2xl font-semibold mb-2 text-blue-200">7. Conclusion</h2>
+  <p>
+    This tool enhances productivity in contact searches with an easy-to-use interface. It is ideal for professionals in
+    sales,
+    research, or customer service. If you have any questions, contact support or check our documentation.
+  </p>
+</div>
 
-  <!--
-    - custom js link
-  -->
-  <script src="./assets/js/script.js"></script>
-
-  <!--
-    - ionicon link
-  -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
+    </article>
+  </section>
 </body>
 
 </html>
